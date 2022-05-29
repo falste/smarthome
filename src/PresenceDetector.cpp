@@ -7,7 +7,7 @@
 using namespace std::literals::chrono_literals;
 
 constexpr std::chrono::duration delay = 5s;
-constexpr uint8_t numFailedPings = 3;
+constexpr uint8_t numFailedPings = 5;
 
 PresenceDetector::PresenceDetector() {
     hThread_ = std::thread(&PresenceDetector::detect, this);
