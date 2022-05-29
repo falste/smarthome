@@ -15,11 +15,7 @@ const std::string kTopicPrefix = "zigbee2mqtt";
 const int  kQOS = 1;
 const auto kTimeout = std::chrono::seconds(10);
 
-const uint16_t kMaxLogPayloadLength = 100;
-
-// TODO: Figure out when to use try-catch
-// TODO: Figure out if I should use more paho callbacks
-// TODO: Reconnect if connection fails
+const uint16_t kMaxLogLength = 150;
 
 MqttConnection::MqttConnection() {
 	client_ = std::make_unique<mqtt::async_client>(kAddress, kClientId, kPersistDir);
@@ -83,13 +79,12 @@ void MqttConnection::connected(const std::string& cause) {
 }
 
 void MqttConnection::message_arrived(mqtt::const_message_ptr msg) {
-    /*
-    if (msg->to_string().length() > kMaxLogPayloadLength) {
-        Log(Level::Debug, msg->get_topic() + ": " + msg->to_string().substr(0, kMaxLogPayloadLength) + "...");
+    std::string logMsg = msg->get_topic() + ": " + msg->to_string();
+    if (logMsg.length() > kMaxLogLength-3) { // -3 to account for added dots
+        Log(Level::Debug, logMsg.substr(0, kMaxLogLength-3) + "...");
     } else {
-        Log(Level::Debug, msg->get_topic() + ": " + msg->to_string());
+        Log(Level::Debug, logMsg);
     }
-    */
 
     std::string payload = msg->to_string();
     std::string topic = msg->get_topic();
