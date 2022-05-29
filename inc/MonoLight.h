@@ -5,10 +5,9 @@
 #include <string>
 #include <cstdint>
 
-#include "ISmartSink.h"
-#include "base/IMqttConnection.h"
+#include "IMqttConnection.h"
 
-class MonoLight : public ISmartSink, public IMqttMessageReceiver {
+class MonoLight : public IMqttMessageReceiver {
     public:
         MonoLight(IMqttConnection& mqtt, std::string friendlyName);
 

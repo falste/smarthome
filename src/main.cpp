@@ -11,8 +11,8 @@
 #include <string>
 
 #include "Controller.h"
-#include "base/MqttConnection.h"
-#include "base/HttpConnection.h"
+#include "MqttConnection.h"
+#include "HttpConnection.h"
 #include "MonoLight.h"
 #include "RGBLight.h"
 #include "PresenceDetector.h"

@@ -6,7 +6,7 @@
 
 #include "mqtt/async_client.h"
 
-#include "base/IMqttConnection.h"
+#include "IMqttConnection.h"
 
 class MqttConnection : public IMqttConnection, public mqtt::callback, public mqtt::iaction_listener {
     public: // Singleton pattern

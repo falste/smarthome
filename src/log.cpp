@@ -1,7 +1,7 @@
 
 #include <syslog.h>
 
-#include "base/log.h"
+#include "log.h"
 
 void Log(Level lvl, std::string msg) {
     switch (lvl) {

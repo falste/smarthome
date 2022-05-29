@@ -4,8 +4,7 @@
 
 #include "log.h"
 
-#include "base/MqttConnection.h"
-#include "base/IMqttConnection.h"
+#include "MqttConnection.h"
 
 const std::string kAddress = "tcp://localhost:1883";
 const std::string kClientId = "smarthome_client";
