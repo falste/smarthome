@@ -6,14 +6,14 @@
 #include "log.h"
 
 Controller::Controller(IHttpConnection& httpConnection, IMqttConnection& mqttConnection, IPresenceDetector& presenceDetector, ITimer& timer) :
-    httpConnection_(httpConnection), mqttConnection_(mqttConnection), presenceDetector_(presenceDetector), timer_(timer){
-    // Read config
-    // Setup App-Connection
-
-    kitchenLight_ = new MonoLight(mqttConnection_, "Tradfri_Light_Kitchen");
-    deskLight_    = new RGBLight(mqttConnection_, "Mueller_Light_Desk");
-    cornerLight_  = new RGBLight(mqttConnection_, "Ledvance_Light_Corner");
-    chainLights_  = new Switch(mqttConnection_, "Tuya_Plug");
+    httpConnection_(httpConnection),
+    mqttConnection_(mqttConnection),
+    presenceDetector_(presenceDetector),
+    timer_(timer),
+    kitchenLight_(new MonoLight(mqttConnection, "Tradfri_Light_Kitchen")),
+    deskLight_(new RGBLight(mqttConnection, "Mueller_Light_Desk")),
+    cornerLight_(new RGBLight(mqttConnection, "Ledvance_Light_Corner")),
+    chainLights_(new Switch(mqttConnection, "Tuya_Plug")) {
 
     httpConnection.registerPostMessageReceiver(this);
     presenceDetector.registerPresenceReceiver(this);
