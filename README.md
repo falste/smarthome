@@ -8,7 +8,7 @@ Zigbee devices are currently hardcoded in Controller.h. (See TODOs)
 # Build instructions
 Install the paho library for C++: https://github.com/eclipse/paho.mqtt.cpp#building-from-source
 
-Then run:
+Then, run from within the project folder:
 ```
 sudo apt-get install cmake libconfig++-dev libmicrohttpd-dev
 mkdir build
@@ -16,12 +16,12 @@ cd build
 cmake ..
 ```
 
-To build this project run:
+To build this project, run from build folder:
 ```
 make
 ```
 
-To install this project run:
+To install this project, run from build folder:
 ```
 sudo make install
 ```
