@@ -21,6 +21,10 @@ install(
     DESTINATION /etc/systemd/system/
 )
 install(
+    FILES ${PROJECT_SOURCE_DIR}/res/web/site.html ${PROJECT_SOURCE_DIR}/res/web/favicon.ico
+    DESTINATION /opt/smarthome/web/
+)
+install(
     TARGETS smarthome
     RUNTIME DESTINATION /usr/bin
 )

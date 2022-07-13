@@ -26,6 +26,12 @@ To install this project, run from build folder:
 sudo make install
 ```
 
+Do not forget to provide a key and certificate file to:
+```
+/opt/smarthome/web/certificate/server.key.pem
+/opt/smarthome/web/certificate/server.cert.pem
+```
+
 If you are working on the code, something like this works well, too:
 ```
 sudo make install && sudo systemctl restart smarthome.service && journalctl -fu smarthome.service -n50 -p7
@@ -33,7 +39,6 @@ sudo make install && sudo systemctl restart smarthome.service && journalctl -fu 
 
 # TODO
 - Move certain hardcoded variables to a config file, like number of tries and address to ping for presence detection.
-- Move html file to a folder on install and link to that one in the code.
 
 # Contributing
 I'd be happy to see this being used and even more happy if people were to contribute. Feel free to contact me!
