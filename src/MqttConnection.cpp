@@ -2,15 +2,10 @@
 #include <chrono>
 #include <string>
 
+#include "config.h"
 #include "log.h"
 
 #include "MqttConnection.h"
-
-const std::string kAddress = "tcp://localhost:1883";
-const std::string kClientId = "smarthome_client";
-const std::string kPersistDir = "./persist";
-
-const std::string kTopicPrefix = "zigbee2mqtt";
 
 const int  kQOS = 1;
 const auto kTimeout = std::chrono::seconds(10);
@@ -18,7 +13,7 @@ const auto kTimeout = std::chrono::seconds(10);
 const uint16_t kMaxLogLength = 150;
 
 MqttConnection::MqttConnection() {
-	client_ = std::make_unique<mqtt::async_client>(kAddress, kClientId, kPersistDir);
+	client_ = std::make_unique<mqtt::async_client>(cfg::kMqttBrokerAddress, cfg::kMqttClientName, cfg::kPersistDir);
 
 	auto options = mqtt::connect_options_builder()
 		.clean_session()
@@ -57,7 +52,7 @@ void MqttConnection::registerMessageReceiver(IMqttMessageReceiver* recv, std::st
 }
 
 void MqttConnection::send(std::string friendlyName, std::string command, std::string payload) {
-    std::string topic = kTopicPrefix + "/" + friendlyName + "/" + command;
+    std::string topic = cfg::kMqttTopicPrefix + "/" + friendlyName + "/" + command;
 
     try {
 		mqtt::message_ptr msg = mqtt::make_message(topic, payload);
@@ -73,7 +68,7 @@ void MqttConnection::send(std::string friendlyName, std::string command, std::st
 }
 
 void MqttConnection::connected(const std::string& cause) {
-    std::string topicSub = kTopicPrefix + "/#";
+    std::string topicSub = cfg::kMqttTopicPrefix + "/#";
     Log(Level::Info, "Subscribing to MQTT topic '" + topicSub + "' using QoS" + std::to_string(kQOS));
     client_->subscribe(topicSub, kQOS, nullptr, *this);
 }
@@ -96,13 +91,13 @@ void MqttConnection::message_arrived(mqtt::const_message_ptr msg) {
     }
 
     /*
-     * The topic is expected to be of the format kTopicPrefix/friendlyName/command
+     * The topic is expected to be of the format cfg::kMqttTopicPrefix/friendlyName/command
      */
-    //Get and remove kTopicPrefix from topic
+    //Get and remove cfg::kMqttTopicPrefix from topic
     std::string token = topic.substr(0, topic.find(delimiter));
     topic.erase(0, token.length()+1);
 
-    if (token != kTopicPrefix) {
+    if (token != cfg::kMqttTopicPrefix) {
         Log(Level::Warn, "Topic prefix not as expected, skipping message");
         return;
     }
