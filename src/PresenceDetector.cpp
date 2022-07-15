@@ -1,13 +1,13 @@
 
 #include <chrono>
+#include <string>
 
+#include "config.h"
 #include "log.h"
 #include "PresenceDetector.h"
 
 using namespace std::literals::chrono_literals;
-
 constexpr std::chrono::duration delay = 5s;
-constexpr uint8_t numFailedPings = 5;
 
 PresenceDetector::PresenceDetector() {
     hThread_ = std::thread(&PresenceDetector::detect, this);
@@ -23,17 +23,19 @@ void PresenceDetector::detect() {
         bool isPhoneReachable = false;
         bool isRouterReachable = false;
 
-        for (uint8_t i = 0; i < numFailedPings; i++) {
+        for (uint8_t i = 0; i < cfg::maxFailedPings; i++) {
             // Check phone connection
-            if (system("ping -c1 -s0 192.168.178.4  > /dev/null 2>&1") == 0) {
+            std::string cmd = "ping -c1 -s0 " + cfg::phoneIp + " > /dev/null 2>&1";
+            if (system(cmd.c_str()) == 0) {
                 isPhoneReachable = true;
                 break;
             }
         }
 
-        for (uint8_t i = 0; i < numFailedPings; i++) {
+        for (uint8_t i = 0; i < cfg::maxFailedPings; i++) {
             // Check router connection
-            if (system("ping -c1 -s0 192.168.178.1  > /dev/null 2>&1") == 0) {
+            std::string cmd = "ping -c1 -s0 " + cfg::routerIp + " > /dev/null 2>&1";
+            if (system(cmd.c_str()) == 0) {
                 isRouterReachable = true;
                 break;
             }
