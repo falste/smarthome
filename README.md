@@ -1,4 +1,6 @@
 # smarthome
+![Build](https://github.com/falste/smarthome/actions/workflows/build.yml/badge.svg)
+
 A custom smart home project with a web interface with the goal of communicating with zigbee devices.
 
 As part of its automation, the program responds to certain day times as well as a device in the LAN leaving or joining the network.
