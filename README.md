@@ -18,11 +18,6 @@ cd build
 cmake ..
 ```
 
-To build this project, run from build folder:
-```
-make
-```
-
 To install this project, run from build folder:
 ```
 sudo make install
