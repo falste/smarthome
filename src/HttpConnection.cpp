@@ -11,11 +11,11 @@
  * Constants
  */
 
-const std::string kServerKeyFile = "/etc/apache2/certificate/apache.key.pem";
-const std::string kServerCertFile = "/etc/apache2/certificate/apache.cert.pem";
+const std::string kServerKeyFile = "/opt/smarthome/web/certificate/server.key.pem";
+const std::string kServerCertFile = "/opt/smarthome/web/certificate/server.cert.pem";
 
-const std::string kHtmlFile = "/home/pi/smarthome/res/web/site.html";
-const std::string kFaviconFile = "/home/pi/smarthome/res/web/favicon.ico";
+const std::string kHtmlFile = "/opt/smarthome/web/site.html";
+const std::string kFaviconFile = "/opt/smarthome/web/favicon.ico";
 
 const std::string kLocalIp = "https://192.168.178.3:8081";
 
