@@ -13,14 +13,12 @@ Install the paho library for C++ with SSL support: https://github.com/eclipse/pa
 Then, run from within the project folder:
 ```
 sudo apt-get install cmake libconfig++-dev libmicrohttpd-dev
-mkdir build
-cd build
-cmake ..
+cmake -B ./build
 ```
 
-To install this project, run from build folder:
+To install this project, run:
 ```
-sudo make install
+sudo cmake --build ./build --target install
 ```
 
 Do not forget to provide a key and certificate file to:
@@ -31,7 +29,7 @@ Do not forget to provide a key and certificate file to:
 
 If you are working on the code, something like this works well, too:
 ```
-sudo make install && sudo systemctl restart smarthome.service && journalctl -fu smarthome.service -n50 -p7
+sudo cmake --build ./build --target install && sudo systemctl restart smarthome.service && journalctl -fu smarthome.service -n50 -p7
 ```
 
 # Contributing
