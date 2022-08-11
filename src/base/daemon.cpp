@@ -13,7 +13,7 @@ void Daemon::setReloadFunction(std::function<void()> func) {
     m_reloadFunc = func;
 }
 
-bool Daemon::IsRunning() {
+bool Daemon::isRunning() {
     if (m_reload) {
         m_reload = false;
         m_reloadFunc();
@@ -22,15 +22,15 @@ bool Daemon::IsRunning() {
 }
 
 void Daemon::signalHandler(int signal) {
-    LOG_INFO("Interrup signal number [", signal, "] recived.");
+    Log(Level::Info, "Interrupt signal number [" + std::to_string(signal) + "] recieved.");
     switch (signal) {
         case SIGINT:
         case SIGTERM: {
-            Daemon::instance().m_isRunning = false;
+            Daemon::getInstance().m_isRunning = false;
             break;
         }
         case SIGHUP: {
-            Daemon::instance().m_reload = true;
+            Daemon::getInstance().m_reload = true;
             break;
         }
     }

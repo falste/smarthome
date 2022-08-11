@@ -1,3 +1,5 @@
+// https://github.com/ftraple/cpp-daemon-template
+
 #ifndef DAEMON_H_
 #define DAEMON_H_
 
@@ -6,14 +8,14 @@
 
 class Daemon {
    public:
-    static Daemon& instance() {
+    static Daemon& getInstance() {
         static Daemon instance;
         return instance;
     }
 
     void setReloadFunction(std::function<void()> func);
 
-    bool IsRunning();
+    bool isRunning();
 
    private:
     std::function<void()> m_reloadFunc;

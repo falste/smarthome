@@ -1,4 +1,0 @@
-// the configured options and settings for smarthome
-#define smarthome_VERSION_MAJOR @smarthome_VERSION_MAJOR@
-#define smarthome_VERSION_MINOR @smarthome_VERSION_MINOR@
-
