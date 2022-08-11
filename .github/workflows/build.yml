@@ -31,3 +31,23 @@ jobs:
         run: |
           cmake -B build
           cmake --build ./build
+  Documentation:
+    needs: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Install prerequisites
+        run: |
+          sudo apt-get install -qy --no-install-recommends graphviz
+
+          # Version 1.9 or newer of doxygen is needed for setting "WARN_AS_ERROR = FAIL_ON_WARNINGS"
+          # ubuntu-latest only has an older version
+          git clone https://github.com/doxygen/doxygen.git
+          cd doxygen
+          cmake -B build
+          cmake --build ./build --target install
+
+      - name: Run doxygen
+        run: doxygen Doxyfile
