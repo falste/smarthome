@@ -21,8 +21,6 @@
 #include <syslog.h>
 
 int main(void) {
-    // TODO: Check if I need the daemons reload function
-
     Daemon& daemon = Daemon::getInstance();
 
     IHttpConnection& httpConnection = HttpConnection::getInstance();
