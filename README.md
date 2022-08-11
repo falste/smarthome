@@ -6,7 +6,7 @@ As part of its automation, the program responds to certain day times as well as 
 Zigbee devices are intentionally hardcoded in Controller.cpp and Controller.h. This way, if you want to use this project, you only need to know C++ and not some obscure configuration ruleset like with many other smart home applications. Just fork the project and make it your own!
 
 # Build instructions
-Install the paho library for C++: https://github.com/eclipse/paho.mqtt.cpp#building-from-source
+Install the paho library for C++ with SSL support: https://github.com/eclipse/paho.mqtt.cpp#building-from-source
 
 Then, run from within the project folder:
 ```
