@@ -4,6 +4,7 @@
 
 #include <string>
 #include <ctime>
+#include <memory>
 
 #include "MonoLight.h"
 #include "RGBLight.h"
@@ -43,11 +44,10 @@ class Controller : public IPostMessageReceiver, public IPresenceReceiver, public
         IPresenceDetector& presenceDetector_;
         ITimer& timer_;
 
-        // TODO: Use smart pointers
-        MonoLight* kitchenLight_;
-        RGBLight* deskLight_;
-        RGBLight* cornerLight_;
-        Switch* chainLights_;
+        std::unique_ptr<MonoLight> kitchenLight_;
+        std::unique_ptr<RGBLight> deskLight_;
+        std::unique_ptr<RGBLight> cornerLight_;
+        std::unique_ptr<Switch> chainLights_;
 
         uint8_t lastScene_ = 0;
         bool useAutomation_ = true;
