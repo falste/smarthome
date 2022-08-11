@@ -1,24 +1,9 @@
-#include <iostream>
-#include <libconfig.h++>
-
 #include "daemon.h"
-#include "log.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <cstring>
-#include <string>
-
 #include "Controller.h"
 #include "MqttConnection.h"
 #include "HttpConnection.h"
-#include "MonoLight.h"
-#include "RGBLight.h"
 #include "PresenceDetector.h"
 #include "Timer.h"
-
-#include <syslog.h>
 
 int main(void) {
     Daemon& daemon = Daemon::getInstance();
