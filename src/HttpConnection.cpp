@@ -4,6 +4,7 @@
 
 #include <fstream>
 
+#include "config.h"
 #include "log.h"
 #include "HttpConnection.h"
 
@@ -11,15 +12,6 @@
  * Constants
  */
 
-const std::string kServerKeyFile = "/opt/smarthome/web/certificate/server.key.pem";
-const std::string kServerCertFile = "/opt/smarthome/web/certificate/server.cert.pem";
-
-const std::string kHtmlFile = "/opt/smarthome/web/site.html";
-const std::string kFaviconFile = "/opt/smarthome/web/favicon.ico";
-
-const std::string kLocalIp = "https://192.168.178.3:8081";
-
-constexpr uint16_t kPort = 8081;
 constexpr uint16_t kPostBufferSize = 1024;
 
 /*
@@ -40,15 +32,15 @@ struct ConData
  */
 
 HttpConnection::HttpConnection() {
-    if (!readFile(kHtmlFile, html_) ||
-        !readFile(kServerKeyFile, keyPem_) ||
-        !readFile(kServerCertFile, certPem_) ||
-        !readFile(kFaviconFile, favicon_)) {
+    if (!readFile(cfg::kHtmlFile, html_) ||
+        !readFile(cfg::kServerKeyFile, keyPem_) ||
+        !readFile(cfg::kServerCertFile, certPem_) ||
+        !readFile(cfg::kFaviconFile, favicon_)) {
         return;
     }
 
     httpDaemon_ = MHD_start_daemon(MHD_USE_INTERNAL_POLLING_THREAD | MHD_USE_SSL | MHD_USE_ERROR_LOG,
-        kPort,
+        cfg::kPort,
         nullptr,
         nullptr,
         &onConnection,
@@ -138,7 +130,7 @@ int HttpConnection::onConnection(void* cls,
             return MHD_YES;
         }
 
-        return sendRedirectResponse(connection, kLocalIp);
+        return sendRedirectResponse(connection, "https://" + cfg::kLocalIp + ":" + std::to_string(cfg::kPort));
     }
 
     if (strcmp(method, "GET") == 0 && strcmp(url, "/favicon.ico") == 0) {
