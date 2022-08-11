@@ -14,6 +14,10 @@ void MonoLight::setBrightness(uint8_t percent) {
     mqtt_.send(friendlyName_, "set", "{\"brightness\":" + std::to_string(percent * maxBrightness / 100) + ",\"transition\":2}");
 }
 
+uint8_t MonoLight::getBrightness() {
+    return brightness_;
+}
+
 /*
 void MonoLight::setOnOff(bool on) {
     std::string onOff = on ? "ON" : "OFF";
@@ -23,13 +27,7 @@ void MonoLight::setOnOff(bool on) {
 void MonoLight::toggle() {
     mqtt_.send(friendlyName_, "set", "\"state\"", "\"TOGGLE\"");
 }
-*/
 
-uint8_t MonoLight::getBrightness() {
-    return brightness_;
-}
-
-/*
 bool MonoLight::getOnOff() {
     return brightness_ != 0;
 }
