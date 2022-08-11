@@ -17,7 +17,6 @@ int main(int argc, char **argv) {
     if (CmdOptionExists(argv, argv+argc, "--syslog")) {
         SetLogMethod(LogMethod::Syslog);
     } else {
-        return -1;
         SetLogMethod(LogMethod::Std);
     }
 
