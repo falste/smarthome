@@ -8,8 +8,8 @@
 #include "MonoLight.h"
 #include "RGBLight.h"
 #include "Switch.h"
-#include "base/IHttpConnection.h"
-#include "base/IMqttConnection.h"
+#include "IHttpConnection.h"
+#include "IMqttConnection.h"
 #include "IPresenceDetector.h"
 #include "ITimer.h"
 

@@ -6,7 +6,7 @@
 #include <vector>
 #include <microhttpd.h>
 
-#include "base/IHttpConnection.h"
+#include "IHttpConnection.h"
 
 class HttpConnection : public IHttpConnection {
     public: // Singleton pattern

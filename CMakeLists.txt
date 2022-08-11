@@ -4,15 +4,11 @@ set(CMAKE_CXX_STANDARD 20)
 project(smarthome VERSION 1.0)
 
 include_directories(
-    ${PROJECT_SOURCE_DIR}/inc/base
     ${PROJECT_SOURCE_DIR}/inc
-    ${PROJECT_SOURCE_DIR}/src/base
     ${PROJECT_SOURCE_DIR}/src
 )
 file(GLOB all_SRCS
-    "${PROJECT_SOURCE_DIR}/inc/base/*.h"
     "${PROJECT_SOURCE_DIR}/inc/*.h"
-    "${PROJECT_SOURCE_DIR}/src/base/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/*.cpp"
 )
 add_executable(smarthome ${all_SRCS})

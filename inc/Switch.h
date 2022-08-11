@@ -5,10 +5,9 @@
 #include <string>
 #include <cstdint>
 
-#include "ISmartSink.h"
-#include "base/IMqttConnection.h"
+#include "IMqttConnection.h"
 
-class Switch : public ISmartSink, public IMqttMessageReceiver {
+class Switch : public IMqttMessageReceiver {
     public:
         Switch(IMqttConnection& mqtt, std::string friendlyName);
 

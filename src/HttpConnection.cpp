@@ -4,8 +4,8 @@
 
 #include <fstream>
 
-#include "base/log.h"
-#include "base/HttpConnection.h"
+#include "log.h"
+#include "HttpConnection.h"
 
 /*
  * Constants
