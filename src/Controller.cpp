@@ -125,7 +125,7 @@ void Controller::onFiveMinutes(std::tm time) {
         return;
     }
 
-    if (lastScene_ == 0 && time.tm_hour == 22 && time.tm_min == 0) {
-        setScene(2);
+    if (lastScene_ == 0 && time.tm_hour == 0 && time.tm_min == 0) {
+        setScene(3);
     }
 }
