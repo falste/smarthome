@@ -3,7 +3,7 @@ Description=Custom smarthome application
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/smarthome --conf_file /etc/smarthome/smarthome.conf
+ExecStart=/usr/bin/smarthome --syslog
 ExecReload=/bin/kill -HUP $MAINPID
 User=root
 StandardOutput=syslog
