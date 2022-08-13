@@ -1,3 +1,4 @@
+#include "log.h"
 #include "daemon.h"
 #include "Controller.h"
 #include "MqttConnection.h"
@@ -5,7 +6,21 @@
 #include "PresenceDetector.h"
 #include "Timer.h"
 
-int main(void) {
+#include <stdbool.h>
+#include <string>
+
+bool CmdOptionExists(char** begin, char** end, const std::string& option) {
+    return std::find(begin, end, option) != end;
+}
+
+int main(int argc, char **argv) {
+    if (CmdOptionExists(argv, argv+argc, "--syslog")) {
+        SetLogMethod(LogMethod::Syslog);
+    } else {
+        return -1;
+        SetLogMethod(LogMethod::Std);
+    }
+
     Daemon& daemon = Daemon::getInstance();
 
     IHttpConnection& httpConnection = HttpConnection::getInstance();
