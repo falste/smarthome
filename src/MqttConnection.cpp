@@ -25,6 +25,7 @@ MqttConnection::MqttConnection() {
 		mqtt::token_ptr conntok = client_->connect(options);
 		conntok->wait();
 	} catch (const mqtt::exception& e) {
+		Log(Level::Err, "Failed to establish mqtt connection:");
 		Log(Level::Err, e.what());
 	}
 }
@@ -34,6 +35,7 @@ MqttConnection::~MqttConnection() {
 		// Disconnect
 		client_->disconnect()->wait();
 	} catch (const mqtt::exception& e) {
+        Log(Level::Err, "Failed to disconnect mqtt connection:");
 		Log(Level::Err, e.what());
 	}
 }
