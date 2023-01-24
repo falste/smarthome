@@ -8,28 +8,24 @@ As part of its automation, the program responds to certain day times as well as 
 Zigbee devices are intentionally hardcoded in Controller.cpp and Controller.h. This way, if you want to use this project, you only need to know C++ and not some obscure configuration ruleset like with many other smart home applications. Just fork the project and make it your own!
 
 # Build instructions
-Install the paho library for C++ with SSL support: https://github.com/eclipse/paho.mqtt.cpp#building-from-source
 
-Then, run from within the project folder:
 ```
-sudo apt-get install cmake libconfig++-dev libmicrohttpd-dev
-cmake -B ./build
+docker build .
 ```
 
-To install this project, run:
-```
-sudo cmake --build ./build --target install
-```
+# docker-compose
 
-Do not forget to provide a key and certificate file to:
 ```
-/opt/smarthome/web/certificate/server.key.pem
-/opt/smarthome/web/certificate/server.cert.pem
-```
-
-If you are working on the code, something like this works well, too:
-```
-sudo cmake --build ./build --target install && sudo systemctl restart smarthome.service && journalctl -fu smarthome.service -n50 -p7
+version: "2.1"
+services:
+  smarthome:
+    image: ghcr.io/falste/smarthome:latest
+    container_name: smarthome
+    volumes:
+      - /[...]/key.pem:/smarthome/web/cert/server.key.pem:ro
+      - /[...]/cert.pem:/smarthome/web/cert/server.cert.pem:ro
+    ports:
+      - 8081:8081
 ```
 
 # Contributing

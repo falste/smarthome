@@ -12,21 +12,20 @@ const std::string phoneIp =  "192.168.178.4";
 constexpr uint8_t maxFailedPings = 5;
 
 // HttpConnection
-const std::string kServerKeyFile =  "/opt/smarthome/web/certificate/server.key.pem";
-const std::string kServerCertFile = "/opt/smarthome/web/certificate/server.cert.pem";
-const std::string kHtmlFile =       "/opt/smarthome/web/site.html";
-const std::string kFaviconFile =    "/opt/smarthome/web/favicon.ico";
+const std::string kServerKeyFile =  "/smarthome/web/cert/server.key.pem";
+const std::string kServerCertFile = "/smarthome/web/cert/server.cert.pem";
+const std::string kHtmlFile =       "/smarthome/web/site.html";
+const std::string kFaviconFile =    "/smarthome/web/favicon.ico";
 
 const std::string kLocalIp = "192.168.178.3";
 constexpr uint16_t kPort = 8081;
 
 // MqttConnection
-const std::string kMqttBrokerAddress = "tcp://localhost:1883";
+const std::string kMqttBrokerAddress = "tcp://mosquitto:1883";
 const std::string kMqttTopicPrefix = "zigbee2mqtt";
 const std::string kMqttClientName = "smarthome_client";
 
-const std::string kPersistDir = "/opt/smarthome/.persist";
-
+const std::string kPersistDir = "/smarthome/.persist";
 
 } // namespace cfg
 

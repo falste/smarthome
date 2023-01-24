@@ -22,7 +22,7 @@ void Log(Level lvl, std::string msg) {
     msg = levelPrefixes[lvl] + msg;
 
     if (logMethod == LogMethod::Syslog) {
-        syslog(prios[lvl], msg.c_str());
+        syslog(prios[lvl], "%s", msg.c_str());
     } else {
         if (lvl == Level::Debug || lvl == Level::Info) {
             std::cout << msg << "\n";
