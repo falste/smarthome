@@ -23,17 +23,15 @@ RUN git clone https://github.com/eclipse/paho.mqtt.cpp && \
     rm -r /paho/paho.mqtt.cpp
 
 # Install smarthome software
-COPY . /smarthome
-WORKDIR /smarthome/build
-RUN cmake .. && make
+COPY . /smarthome_build
+WORKDIR /smarthome_build/build
+RUN cmake .. && \
+    make && \
+    mkdir /smarthome && \
+    mv smarthome /smarthome && \
+    mv ../res/web/ /smarthome/web/ && \
+    cd /smarthome && \
+    rm -r /smarthome_build
 
-
-FROM arm32v7/ubuntu:18.04 AS runtime_env
 WORKDIR /smarthome
-RUN apt-get update && \
-    apt install -y --no-install-recommends libconfig++-dev libmicrohttpd-dev libssl-dev iputils-ping > /dev/null
-
-COPY --from=build_env /smarthome/build/smarthome /smarthome/smarthome
-COPY res/web/* /smarthome/web/
-
 CMD ["./smarthome"]
