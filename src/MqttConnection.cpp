@@ -13,31 +13,31 @@ const auto kTimeout = std::chrono::seconds(10);
 const uint16_t kMaxLogLength = 150;
 
 MqttConnection::MqttConnection() {
-	client_ = std::make_unique<mqtt::async_client>(cfg::kMqttBrokerAddress, cfg::kMqttClientName, cfg::kPersistDir);
+    client_ = std::make_unique<mqtt::async_client>(cfg::kMqttBrokerAddress, cfg::kMqttClientName, cfg::kPersistDir);
 
-	auto options = mqtt::connect_options_builder()
-		.clean_session()
-		.finalize();
+    auto options = mqtt::connect_options_builder()
+        .clean_session()
+        .finalize();
 
     client_->set_callback(*this);
 
-	try {
-		mqtt::token_ptr conntok = client_->connect(options);
-		conntok->wait();
-	} catch (const mqtt::exception& e) {
-		Log(Level::Err, "Failed to establish mqtt connection:");
-		Log(Level::Err, e.what());
-	}
+    try {
+        mqtt::token_ptr conntok = client_->connect(options);
+        conntok->wait();
+    } catch (const mqtt::exception& e) {
+        Log(Level::Err, "Failed to establish mqtt connection:");
+        Log(Level::Err, e.what());
+    }
 }
 
 MqttConnection::~MqttConnection() {
     try {
-		// Disconnect
-		client_->disconnect()->wait();
-	} catch (const mqtt::exception& e) {
+        // Disconnect
+        client_->disconnect()->wait();
+    } catch (const mqtt::exception& e) {
         Log(Level::Err, "Failed to disconnect mqtt connection:");
-		Log(Level::Err, e.what());
-	}
+        Log(Level::Err, e.what());
+    }
 }
 
 void MqttConnection::registerMessageReceiver(IMqttMessageReceiver* recv, std::string friendlyName) {
@@ -57,12 +57,12 @@ void MqttConnection::send(std::string friendlyName, std::string command, std::st
     std::string topic = cfg::kMqttTopicPrefix + "/" + friendlyName + "/" + command;
 
     try {
-		mqtt::message_ptr msg = mqtt::make_message(topic, payload);
-		msg->set_qos(kQOS);
-		client_->publish(msg)->wait_for(kTimeout);
-	} catch (const mqtt::exception& e) {
-		Log(Level::Err, e.what());
-	}
+        mqtt::message_ptr msg = mqtt::make_message(topic, payload);
+        msg->set_qos(kQOS);
+        client_->publish(msg)->wait_for(kTimeout);
+    } catch (const mqtt::exception& e) {
+        Log(Level::Err, e.what());
+    }
 }
 
 void MqttConnection::send(std::string friendlyName, std::string command, std::string key, std::string value) {
