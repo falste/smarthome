@@ -21,8 +21,3 @@ jobs:
           docker buildx create --name builder
           docker buildx use builder
           docker buildx build --platform linux/arm/v7,linux/arm64 -t ghcr.io/falste/smarthome:latest --push .
-
-
-
-
-

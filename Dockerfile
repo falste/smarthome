@@ -28,9 +28,10 @@ WORKDIR /smarthome/build
 RUN cmake .. && make
 
 
-FROM arm32v7/alpine:latest AS runtime_env
+FROM arm32v7/ubuntu:18.04 AS runtime_env
 WORKDIR /smarthome
-RUN apk add --update --no-cache --virtual libconfig++ libmicrohttpd libressl iputils
+RUN apt-get update && \
+    apt install -y --no-install-recommends libconfig++-dev libmicrohttpd-dev libssl-dev iputils-ping > /dev/null
 
 COPY --from=build_env /smarthome/build/smarthome /smarthome/smarthome
 COPY res/web/* /smarthome/web/
