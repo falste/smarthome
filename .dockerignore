@@ -1,7 +1,8 @@
-.git
-.dockerfile
+.github
 build
-Dockerignore
+
+.dockerignore
+.gitignore
+Dockerfile
 LICENSE
 README.md
-

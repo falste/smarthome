@@ -1,34 +1,38 @@
 FROM arm32v7/ubuntu:18.04 AS build_env
-COPY . /smarthome
-RUN apt-get update
-RUN apt install -y --no-install-recommends build-essential ca-certificates cmake libconfig++-dev libmicrohttpd-dev libssl-dev git > /dev/null
+
+RUN apt-get update && \
+    apt install -y --no-install-recommends build-essential ca-certificates cmake git libconfig++-dev libmicrohttpd-dev libssl-dev > /dev/null
 
 # Install paho C and C++ library
 WORKDIR /paho
-RUN git clone https://github.com/eclipse/paho.mqtt.c.git
-WORKDIR /paho/paho.mqtt.c
-RUN git checkout v1.3.8
-RUN cmake -Bbuild -H. -DPAHO_ENABLE_TESTING=OFF -DPAHO_BUILD_STATIC=ON -DPAHO_WITH_SSL=ON -DPAHO_HIGH_PERFORMANCE=ON
-RUN cmake --build build/ --target install
-RUN ldconfig
+RUN git clone https://github.com/eclipse/paho.mqtt.c.git && \
+    cd /paho/paho.mqtt.c && \
+    git checkout v1.3.8 && \
+    cmake -Bbuild -H. -DPAHO_ENABLE_TESTING=OFF -DPAHO_BUILD_STATIC=ON -DPAHO_WITH_SSL=ON -DPAHO_HIGH_PERFORMANCE=ON && \
+    cmake --build build/ --target install && \
+    ldconfig && \
+    cd .. && \
+    rm -r /paho/paho.mqtt.c
 
-WORKDIR /paho
-RUN git clone https://github.com/eclipse/paho.mqtt.cpp
-WORKDIR /paho/paho.mqtt.cpp
-RUN cmake -Bbuild -H. -DPAHO_BUILD_STATIC=ON -DPAHO_WITH_SSL=ON
-RUN cmake --build build/ --target install
-RUN ldconfig
+RUN git clone https://github.com/eclipse/paho.mqtt.cpp && \
+    cd /paho/paho.mqtt.cpp && \
+    cmake -Bbuild -H. -DPAHO_BUILD_STATIC=ON -DPAHO_WITH_SSL=ON && \
+    cmake --build build/ --target install && \
+    ldconfig && \
+    cd .. && \
+    rm -r /paho/paho.mqtt.cpp
 
 # Install smarthome software
+COPY . /smarthome
 WORKDIR /smarthome/build
-RUN cmake ..
-RUN make
+RUN cmake .. && make
 
-#FROM ubuntu:18.04 AS runtime_env
-#COPY --from=build_env /smarthome/build/smarthome /smarthome/smarthome
 
-#RUN apt-get update
-#RUN apt install -y --no-install-recommends libconfig++-dev libmicrohttpd-dev libssl-dev > /dev/null
+FROM arm32v7/alpine:latest AS runtime_env
+WORKDIR /smarthome
+RUN apk add --update --no-cache --virtual libconfig++ libmicrohttpd libressl iputils
 
-#WORKDIR /smarthome
+COPY --from=build_env /smarthome/build/smarthome /smarthome/smarthome
+COPY res/web/* /smarthome/web/
+
 CMD ["./smarthome"]
