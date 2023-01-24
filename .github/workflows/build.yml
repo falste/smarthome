@@ -1,37 +1,6 @@
 name: Build
 on: [push]
 jobs:
-  build_app:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-
-      - name: Install prerequisites
-        run: sudo apt-get install -qy --no-install-recommends libconfig++-dev libmicrohttpd-dev
-
-      - name: Install paho for C
-        run: |
-          git clone https://github.com/eclipse/paho.mqtt.c.git
-          cd paho.mqtt.c
-          git checkout v1.3.8
-          cmake -Bbuild -H. -DPAHO_ENABLE_TESTING=OFF -DPAHO_BUILD_STATIC=ON -DPAHO_WITH_SSL=ON -DPAHO_HIGH_PERFORMANCE=ON
-          sudo cmake --build build/ --target install
-          sudo ldconfig
-
-      - name: Install paho for C++
-        run: |
-          git clone https://github.com/eclipse/paho.mqtt.cpp
-          cd paho.mqtt.cpp
-          cmake -Bbuild -H. -DPAHO_BUILD_STATIC=ON
-          sudo cmake --build build/ --target install
-          sudo ldconfig
-
-      - name: Build application
-        run: |
-          cmake -B build
-          cmake --build ./build
-
   build_docker:
     runs-on: ubuntu-latest
     steps:
