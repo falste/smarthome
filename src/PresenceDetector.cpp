@@ -1,13 +1,9 @@
 
-#include <chrono>
 #include <string>
 
 #include "config.h"
 #include "log.h"
 #include "PresenceDetector.h"
-
-using namespace std::literals::chrono_literals;
-constexpr std::chrono::duration delay = 5s;
 
 PresenceDetector::PresenceDetector() {
     hThread_ = std::thread(&PresenceDetector::detect, this);
@@ -74,7 +70,7 @@ void PresenceDetector::detect() {
             }
         }
 
-        std::this_thread::sleep_for(delay);
+        std::this_thread::sleep_for(cfg::delay);
     }
 }
 

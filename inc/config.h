@@ -2,14 +2,18 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
+#include <chrono>
 #include <string>
+
+using namespace std::literals::chrono_literals;
 
 namespace cfg {
 
 // PresenceDetector
 const std::string routerIp = "192.168.178.1";
 const std::string phoneIp =  "192.168.178.4";
-constexpr uint8_t maxFailedPings = 5;
+constexpr uint8_t maxFailedPings = 30;
+constexpr std::chrono::duration delay = 1s;
 
 // HttpConnection
 const std::string kServerKeyFile =  "/smarthome/web/cert/server.key.pem";
