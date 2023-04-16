@@ -20,6 +20,8 @@ int main(int argc, char **argv) {
         SetLogMethod(LogMethod::Std);
     }
 
+    setenv("TZ", "/usr/share/zoneinfo/Europe/Berlin", 1);
+
     Daemon& daemon = Daemon::getInstance();
 
     IHttpConnection& httpConnection = HttpConnection::getInstance();
