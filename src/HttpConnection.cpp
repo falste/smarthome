@@ -37,7 +37,7 @@ HttpConnection::HttpConnection() {
         return;
     }
 
-    httpDaemon_ = MHD_start_daemon(MHD_USE_INTERNAL_POLLING_THREAD | MHD_USE_SSL | MHD_USE_ERROR_LOG,
+    httpDaemon_ = MHD_start_daemon(MHD_USE_INTERNAL_POLLING_THREAD | MHD_USE_ERROR_LOG,
         cfg::kPort,
         nullptr,
         nullptr,
