@@ -1,7 +1,7 @@
 FROM arm32v7/ubuntu:18.04 AS build_env
 
 RUN apt-get update && \
-    apt install -y --no-install-recommends build-essential ca-certificates cmake git iputils-ping libconfig++-dev libmicrohttpd-dev libssl-dev > /dev/null
+    apt install -y --no-install-recommends build-essential ca-certificates curl cmake git iputils-ping libconfig++-dev libmicrohttpd-dev libssl-dev > /dev/null
 
 # Install paho C and C++ library
 WORKDIR /paho
