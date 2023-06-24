@@ -33,8 +33,6 @@ struct ConData
 
 HttpConnection::HttpConnection() {
     if (!readFile(cfg::kHtmlFile, html_) ||
-        !readFile(cfg::kServerKeyFile, keyPem_) ||
-        !readFile(cfg::kServerCertFile, certPem_) ||
         !readFile(cfg::kFaviconFile, favicon_)) {
         return;
     }
@@ -46,8 +44,6 @@ HttpConnection::HttpConnection() {
         &onConnection,
         nullptr,
         MHD_OPTION_NOTIFY_COMPLETED, &onConnectionFinished, nullptr,
-        MHD_OPTION_HTTPS_MEM_KEY, keyPem_.c_str(),
-        MHD_OPTION_HTTPS_MEM_CERT, certPem_.c_str(),
         MHD_OPTION_END);
 
     if (httpDaemon_ == nullptr) {
