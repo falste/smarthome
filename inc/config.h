@@ -25,7 +25,7 @@ const std::string kLocalIp = "192.168.178.3";
 constexpr uint16_t kPort = 8081;
 
 // MqttConnection
-const std::string kMqttBrokerAddress = "tcp://mosquitto:1883";
+const std::string kMqttBrokerAddress = "tcp://smarthome-mosquitto:1883";
 const std::string kMqttTopicPrefix = "zigbee2mqtt";
 const std::string kMqttClientName = "smarthome_client";
 
