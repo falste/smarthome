@@ -16,8 +16,6 @@ constexpr uint8_t maxFailedPings = 30;
 constexpr std::chrono::duration delay = 1s;
 
 // HttpConnection
-const std::string kServerKeyFile =  "/smarthome/web/cert/server.key.pem";
-const std::string kServerCertFile = "/smarthome/web/cert/server.cert.pem";
 const std::string kHtmlFile =       "/smarthome/web/site.html";
 const std::string kFaviconFile =    "/smarthome/web/favicon.ico";
 
