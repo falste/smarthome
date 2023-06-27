@@ -38,7 +38,7 @@ HttpConnection::HttpConnection() {
     }
 
     httpDaemon_ = MHD_start_daemon(MHD_USE_INTERNAL_POLLING_THREAD | MHD_USE_ERROR_LOG,
-        cfg::kPort,
+        80, // port
         nullptr,
         nullptr,
         &onConnection,
@@ -126,7 +126,7 @@ int HttpConnection::onConnection(void* cls,
             return MHD_YES;
         }
 
-        return sendRedirectResponse(connection, "https://" + cfg::kLocalIp + ":" + std::to_string(cfg::kPort));
+        return sendRedirectResponse(connection, url);
     }
 
     if (strcmp(method, "GET") == 0 && strcmp(url, "/favicon.ico") == 0) {

@@ -19,9 +19,6 @@ constexpr std::chrono::duration delay = 1s;
 const std::string kHtmlFile =       "/smarthome/web/site.html";
 const std::string kFaviconFile =    "/smarthome/web/favicon.ico";
 
-const std::string kLocalIp = "192.168.178.3";
-constexpr uint16_t kPort = 80;
-
 // MqttConnection
 const std::string kMqttBrokerAddress = "tcp://smarthome-mosquitto:1883";
 const std::string kMqttTopicPrefix = "zigbee2mqtt";
