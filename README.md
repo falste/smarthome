@@ -21,9 +21,6 @@ services:
   smarthome:
     image: ghcr.io/falste/smarthome:latest
     container_name: smarthome
-    volumes:
-      - /[...]/key.pem:/smarthome/web/cert/server.key.pem:ro
-      - /[...]/cert.pem:/smarthome/web/cert/server.cert.pem:ro
     ports:
       - 8081:8081
 ```
