@@ -27,6 +27,7 @@ MqttConnection::MqttConnection() {
     } catch (const mqtt::exception& e) {
         Log(Level::Err, "Failed to establish mqtt connection:");
         Log(Level::Err, e.what());
+        exit(-1);
     }
 }
 
@@ -37,17 +38,18 @@ MqttConnection::~MqttConnection() {
     } catch (const mqtt::exception& e) {
         Log(Level::Err, "Failed to disconnect mqtt connection:");
         Log(Level::Err, e.what());
+        exit(-1);
     }
 }
 
 void MqttConnection::registerMessageReceiver(IMqttMessageReceiver* recv, std::string friendlyName) {
     if (recv == nullptr) {
         Log(Level::Err, "Trying to register nullptr as mqtt message receiver");
-        return;
+        exit(-1);
     }
     if (friendlyName.length() < 1) {
         Log(Level::Err, "Trying to register device with bad friendlyName");
-        return;
+        exit(-1);
     }
 
     this->messageReceivers_.emplace(friendlyName, recv);
@@ -61,7 +63,9 @@ void MqttConnection::send(std::string friendlyName, std::string command, std::st
         msg->set_qos(kQOS);
         client_->publish(msg)->wait_for(kTimeout);
     } catch (const mqtt::exception& e) {
+        Log(Level::Err, "Failed to send mqtt message:");
         Log(Level::Err, e.what());
+        exit(-1);
     }
 }
 
@@ -123,5 +127,6 @@ void MqttConnection::on_success(const mqtt::token& tok) {
 }
 
 void MqttConnection::on_failure(const mqtt::token& tok) {
-    Log(Level::Warn, "Mqtt failure");
+    Log(Level::Err, "Mqtt failure");
+    exit(-1);
 }
