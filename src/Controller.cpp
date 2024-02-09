@@ -41,7 +41,7 @@ void Controller::setScene(uint8_t sceneIndex) {
         case 0:
             kitchenLight_->setBrightness(100);
             deskLight_->setHSB(40,80,55);
-            cornerLight_->setHSB(45,97,100);
+            cornerLight_->setHSB(45,90,100);
             chainLights_->setOnOff(true);
             break;
         case 1:
