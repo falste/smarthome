@@ -17,6 +17,7 @@ RUN git clone https://github.com/eclipse/paho.mqtt.c.git && \
 
 RUN git clone https://github.com/eclipse/paho.mqtt.cpp.git && \
     cd paho.mqtt.cpp && \
+    git checkout v1.2.0 && \
     cmake -Bbuild -H. -DPAHO_BUILD_STATIC=ON -DPAHO_WITH_SSL=ON -DCMAKE_PREFIX_PATH=/usr/local/lib/cmake/eclipse-paho-mqtt-c && \
     cmake --build build/ --target install && \
     ldconfig && \
