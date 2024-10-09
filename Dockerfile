@@ -6,21 +6,22 @@ RUN apt-get update && \
 # Install paho C and C++ library
 WORKDIR /paho
 RUN git clone https://github.com/eclipse/paho.mqtt.c.git && \
-    cd /paho/paho.mqtt.c && \
+    cd paho.mqtt.c && \
     git checkout v1.3.8 && \
     cmake -Bbuild -H. -DPAHO_ENABLE_TESTING=OFF -DPAHO_BUILD_STATIC=ON -DPAHO_WITH_SSL=ON -DPAHO_HIGH_PERFORMANCE=ON && \
     cmake --build build/ --target install && \
+    cmake --build build/ --target paho-mqtt3as-static && \
     ldconfig && \
     cd .. && \
-    rm -r /paho/paho.mqtt.c
+    rm -r paho.mqtt.c
 
-RUN git clone https://github.com/eclipse/paho.mqtt.cpp && \
-    cd /paho/paho.mqtt.cpp && \
-    cmake -Bbuild -H. -DPAHO_BUILD_STATIC=ON -DPAHO_WITH_SSL=ON && \
+RUN git clone https://github.com/eclipse/paho.mqtt.cpp.git && \
+    cd paho.mqtt.cpp && \
+    cmake -Bbuild -H. -DPAHO_BUILD_STATIC=ON -DPAHO_WITH_SSL=ON -DCMAKE_PREFIX_PATH=/usr/local/lib/cmake/eclipse-paho-mqtt-c && \
     cmake --build build/ --target install && \
     ldconfig && \
     cd .. && \
-    rm -r /paho/paho.mqtt.cpp
+    rm -r paho.mqtt.cpp
 
 # Install smarthome software
 COPY . /smarthome_build
