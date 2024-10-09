@@ -12,7 +12,7 @@ Controller::Controller(IHttpConnection& httpConnection, IMqttConnection& mqttCon
     timer_(timer),
     kitchenLight_(new MonoLight(mqttConnection, "Tradfri_Light_Kitchen")),
     deskLight_(new RGBLight(mqttConnection, "Mueller_Light_Desk")),
-    cornerLight_(new RGBLight(mqttConnection, "Ledvance_Light_Corner")),
+    cornerLight_(new RGBLight(mqttConnection, "Nous_Light_Corner")),
     chainLights_(new Switch(mqttConnection, "Tuya_Plug")) {
 
     httpConnection.registerPostMessageReceiver(this);
