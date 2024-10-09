@@ -1,4 +1,4 @@
-FROM arm32v7/ubuntu:18.04 AS build_env
+FROM arm64v8/ubuntu:18.04 AS build_env
 
 RUN apt-get update && \
     apt install -y --no-install-recommends build-essential ca-certificates curl cmake git iputils-ping libconfig++-dev libmicrohttpd-dev libssl-dev > /dev/null
