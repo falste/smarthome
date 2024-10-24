@@ -24,7 +24,3 @@ services:
     ports:
       - 8081:8081
 ```
-
-# Contributing
-I'd be happy to see this being used and even more happy if people were to contribute. Feel free to contact me!
-
