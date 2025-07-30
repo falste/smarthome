@@ -1,9 +1,9 @@
-FROM arm64v8/ubuntu:18.04 AS build_env
+FROM arm64v8/ubuntu:20.04 AS build_env
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         build-essential \
-        gcc-9 g++-9 \
+        gcc g++ \
         ca-certificates \
         curl \
         cmake \
@@ -11,9 +11,7 @@ RUN apt-get update && \
         iputils-ping \
         libconfig++-dev \
         libmicrohttpd-dev \
-        libssl-dev && \
-    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 && \
-    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 90 > /dev/null
+        libssl-dev > /dev/null
 
 # Install paho C and C++ library
 WORKDIR /paho
